@@ -47,6 +47,11 @@ public final class Interners {
     private InternerBuilder() {
     }
 
+    public <E> InternerBuilder equivalence(Equivalence<Object> equivalence) {
+      this.mapMaker.keyEquivalence(equivalence);
+      return this;
+    }
+
     /**
      * Instructs the {@link InternerBuilder} to build a strong interner.
      *
@@ -131,7 +136,7 @@ public final class Interners {
     final MapMakerInternalMap<E, Dummy, ?, ?> map;
 
     private WeakInterner(MapMaker mapMaker) {
-      this.map = mapMaker.weakKeys().keyEquivalence(Equivalence.equals()).makeCustomMap();
+      this.map = mapMaker.weakKeys().makeCustomMap();
     }
 
     @Override
